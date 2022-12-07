@@ -1,9 +1,10 @@
-package pizza;
+package pizzeria;
 
+import exception.StockException;
 
 public class StockPizza {
     
-    private static int fromage;
+    private static int frommage;
     private static int champignon;
     private static int jambon;
     private static int chorizo;
@@ -19,8 +20,8 @@ public class StockPizza {
         return chorizo;
     }
     
-    public int getFromage() {
-        return fromage;
+    public synchronized int getFromage() {
+        return frommage;
     }
     
     public int getChampignon() {
@@ -43,9 +44,9 @@ public class StockPizza {
     	}
     }
     
-    public static void setFromage(int fromage) {
+    public synchronized void setFromage(int fromage) {
     	if(fromage >= 0) {
-    		StockPizza.fromage = fromage;
+    		StockPizza.frommage = fromage;
     	}
     }
     
@@ -58,17 +59,17 @@ public class StockPizza {
     
 //    public static void addChorizo(int chorizo) throws IllegalArgumentException {
 //		if (chorizo >= 0) {
-//			Inventory.chorizo += chorizo;
+//			StockPizza.chorizo += chorizo;
 //		} else {
 //			throw new IllegalArgumentException("Units of chocolate must be a positive integer");
 //		}
 //    }
     
-    public static void add(int quantite, String produit) throws IllegalArgumentException {
+    public static void add(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
 			case "cheese" :
-				StockPizza.fromage += quantite;
+				StockPizza.frommage += quantite;
 				break;
 			case "chorizo" :
 				StockPizza.chorizo += quantite;
@@ -80,16 +81,16 @@ public class StockPizza {
 				StockPizza.jambon += quantite;
 				break;
 			default :
-				throw new IllegalArgumentException(produit+":ne fait pas partie des éléments à ajouter");
+				throw new StockException(produit+":ne fait pas partie des éléments à ajouter");
 			}	
 		} else {
-			throw new IllegalArgumentException("La quantité de "+produit+" à ajouter doit avoir une valeur positive");
+			throw new StockException("La quantité de "+produit+" à ajouter doit avoir une valeur positive");
 		}
     }
     
 //    public static void addMushroom(int mushroom) throws IllegalArgumentException {
 //		if (mushroom >= 0) {
-//			Inventory.mushroom += mushroom;
+//			StockPizza.mushroom += mushroom;
 //		} else {
 //			throw new IllegalArgumentException("Units of milk must be a positive integer");
 //		}
@@ -97,40 +98,37 @@ public class StockPizza {
 //    
 //    public static void addHam(int ham) throws IllegalArgumentException {
 //		if (ham <= 0) {
-//			Inventory.ham += ham;
+//			StockPizza.ham += ham;
 //		} else {
 //			throw new IllegalArgumentException("Units of sugar must be a positive integer");
 //		}
 //    }
     
-//    public boolean enoughIngredients(Recipe r) {
-//        boolean isEnough = true;
-//        if(Inventory.coffee < r.getAmtCoffee()) {
-//            isEnough = false;
-//        }
-//        if(Inventory.milk < r.getAmtMilk()) {
-//            isEnough = false;
-//        }
-//        if(Inventory.sugar < r.getAmtSugar()) {
-//            isEnough = false;
-//        }
-//        if(Inventory.chocolate < r.getAmtChocolate()) {
-//            isEnough = false;
-//        }
-//        return isEnough;
-//    }
+    public boolean assezdIngredients(Recette r) {
+        boolean isEnough = true;
+        if(StockPizza.frommage < r.getNbFrommage()) {
+            isEnough = false;
+        }
+        if(StockPizza.champignon < r.getNbChampignon()) {
+            isEnough = false;
+        }
+        if(StockPizza.jambon < r.getNbJambon()) {
+            isEnough = false;
+        }
+        if(StockPizza.chorizo < r.getNbChorizo()) {
+            isEnough = false;
+        }
+        return isEnough;
+    }
     
-//    public boolean useIngredients(Recipe r) {
-//    	if (enoughIngredients(r)) {
-//	    	Inventory.coffee -= r.getAmtCoffee();
-//	    	Inventory.milk -= r.getAmtMilk();
-//	    	Inventory.sugar -= r.getAmtSugar();
-//	    	Inventory.chocolate -= r.getAmtChocolate();
-//	    	return true;
-//    	} else {
-//    		return false;
-//    	}
-//    }
+    public synchronized void utiliserIngredients(Recette r) {
+    	if (assezdIngredients(r)) {
+	    	StockPizza.frommage -= r.getNbFrommage();
+	    	StockPizza.champignon -= r.getNbChampignon();
+	    	StockPizza.jambon -= r.getNbJambon();
+	    	StockPizza.chorizo -= r.getNbChorizo();
+    	}
+    }
     
     public String toString() {
     	StringBuilder buf = new StringBuilder();
