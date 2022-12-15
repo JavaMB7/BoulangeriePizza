@@ -1,15 +1,16 @@
 package pizzeria;
 
+import exception.RecetteException;
 import exception.StockException;
 
-public class StockPizza {
+public class StockIngPizza {
     
     private static int frommage;
     private static int champignon;
     private static int jambon;
     private static int chorizo;
     
-    public StockPizza() {
+    public StockIngPizza() {
     	setFromage(15);
     	setChampignon(15);
     	setJambon(15);
@@ -34,51 +35,43 @@ public class StockPizza {
 
     public static void setJambon(int jambon) {
     	if(jambon >= 0) {
-    		StockPizza.jambon = jambon;
+    		StockIngPizza.jambon = jambon;
     	}
     }
 
     public static void setChampignon(int champignon) {
     	if(champignon >= 0) {
-    		StockPizza.champignon = champignon;
+    		StockIngPizza.champignon = champignon;
     	}
     }
     
     public synchronized void setFromage(int fromage) {
     	if(fromage >= 0) {
-    		StockPizza.frommage = fromage;
+    		StockIngPizza.frommage = fromage;
     	}
     }
     
     public static void setChorizo(int chorizo) {
     	if(chorizo >= 0) {
-    		StockPizza.chorizo = chorizo;
+    		StockIngPizza.chorizo = chorizo;
     	}
         
     }
     
-//    public static void addChorizo(int chorizo) throws IllegalArgumentException {
-//		if (chorizo >= 0) {
-//			StockPizza.chorizo += chorizo;
-//		} else {
-//			throw new IllegalArgumentException("Units of chocolate must be a positive integer");
-//		}
-//    }
-    
-    public static void add(int quantite, String produit) throws StockException {
+    public void add(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
-			case "cheese" :
-				StockPizza.frommage += quantite;
+			case "frommage" :
+				StockIngPizza.frommage += quantite;
 				break;
 			case "chorizo" :
-				StockPizza.chorizo += quantite;
+				StockIngPizza.chorizo += quantite;
 				break;
-			case "mushroom" :
-				StockPizza.champignon += quantite;
+			case "champignon" :
+				StockIngPizza.champignon += quantite;
 				break;
-			case "ham" :
-				StockPizza.jambon += quantite;
+			case "jambon" :
+				StockIngPizza.jambon += quantite;
 				break;
 			default :
 				throw new StockException(produit+":ne fait pas partie des éléments à ajouter");
@@ -88,45 +81,33 @@ public class StockPizza {
 		}
     }
     
-//    public static void addMushroom(int mushroom) throws IllegalArgumentException {
-//		if (mushroom >= 0) {
-//			StockPizza.mushroom += mushroom;
-//		} else {
-//			throw new IllegalArgumentException("Units of milk must be a positive integer");
-//		}
-//    }
-//    
-//    public static void addHam(int ham) throws IllegalArgumentException {
-//		if (ham <= 0) {
-//			StockPizza.ham += ham;
-//		} else {
-//			throw new IllegalArgumentException("Units of sugar must be a positive integer");
-//		}
-//    }
     
     public boolean assezdIngredients(Recette r) {
         boolean isEnough = true;
-        if(StockPizza.frommage < r.getNbFrommage()) {
+        if(StockIngPizza.frommage < r.getNbFrommage()) {
             isEnough = false;
         }
-        if(StockPizza.champignon < r.getNbChampignon()) {
+        if(StockIngPizza.champignon < r.getNbChampignon()) {
             isEnough = false;
         }
-        if(StockPizza.jambon < r.getNbJambon()) {
+        if(StockIngPizza.jambon < r.getNbJambon()) {
             isEnough = false;
         }
-        if(StockPizza.chorizo < r.getNbChorizo()) {
+        if(StockIngPizza.chorizo < r.getNbChorizo()) {
             isEnough = false;
         }
         return isEnough;
     }
     
-    public synchronized void utiliserIngredients(Recette r) {
+    public synchronized boolean utiliserIngredients(Recette r) {
     	if (assezdIngredients(r)) {
-	    	StockPizza.frommage -= r.getNbFrommage();
-	    	StockPizza.champignon -= r.getNbChampignon();
-	    	StockPizza.jambon -= r.getNbJambon();
-	    	StockPizza.chorizo -= r.getNbChorizo();
+	    	StockIngPizza.frommage -= r.getNbFrommage();
+	    	StockIngPizza.champignon -= r.getNbChampignon();
+	    	StockIngPizza.jambon -= r.getNbJambon();
+	    	StockIngPizza.chorizo -= r.getNbChorizo();
+	    	return true;
+    	} else {
+    		return false;
     	}
     }
     
@@ -146,4 +127,31 @@ public class StockPizza {
     	buf.append("\n");
     	return buf.toString();
     }
+    
+    public static void main(String[] args) throws StockException, RecetteException {
+		StockIngPizza stock = new StockIngPizza();
+		System.out.println(stock.toString());
+		
+		Recette r1;
+		// Set up for r1
+				r1 = new Recette();
+				r1.setNom("Coffee");
+				r1.setNbChorizo(4);
+				r1.setNbChampignon(3);
+				r1.setNbFrommage(6);
+				r1.setNbJambon(0);
+				r1.setPrix(14);
+		try {
+			stock.add(5, "frommage");
+			stock.add(5, "champignon");
+			stock.add(5, "jambon");
+			stock.add(5, "chorizo");
+		} catch (StockException e) {
+			throw new StockException("Erreur");
+		}
+		System.out.println(stock.toString());
+		System.out.println(stock.assezdIngredients(r1));
+		stock.utiliserIngredients(r1);
+		System.out.println(stock.toString());
+	}
 }
