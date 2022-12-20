@@ -1,100 +1,53 @@
 package boulagerie;
 
 import exception.*;
+import pizzeria.Recette;
 
 public class BoulangerieMaker {
-	/** Array of Recettes in coffee maker */
-	private static LivreRecettes livreRecettes;
-	/** stockIngPizza of the coffee maker */
-	private static StockBoulangerie stockIngPizza;
+	
+	private static ListeCommandes commandes;
+	private static StockBoulangerie stockBoulangerie;
 
-	/**
-	 * Constructor for the coffee maker
-	 *
-	 */
 	public BoulangerieMaker() {
-		livreRecettes = new LivreRecettes();
-		stockIngPizza = new StockBoulangerie();
+		commandes = new ListeCommandes();
+		stockBoulangerie = new StockBoulangerie();
 	}
 
-	/**
-	 * Returns true if the Recette is added to the list of Recettes in the CoffeeMaker
-	 * and false otherwise.
-	 * 
-	 * @param r
-	 * @return boolean
-	 */
-	public boolean addRecette(Recette r) {
-		return livreRecettes.ajouterRecette(r);
+	public boolean ajoutCommande(Commande c) {
+		return commandes.ajouterCommande(c);
+	}
+	
+	public String supprCommande(int commandeASuppr) {
+		return commandes.supprimerCommande(commandeASuppr);
 	}
 
-	/**
-	 * Returns the name of the successfully deleted Recette or null if the Recette
-	 * cannot be deleted.
-	 * 
-	 * @param recetteASuppr
-	 * @return String
-	 */
-	public String deleteRecette(int recetteASuppr) {
-		return livreRecettes.supprimerRecette(recetteASuppr);
+	public String modifCommande(int commandeAModif, Commande c) {
+		return commandes.modifierCommande(commandeAModif, c);
 	}
 
-	/**
-	 * Returns the name of the successfully edited Recette or null if the Recette
-	 * cannot be edited.
-	 * 
-	 * @param recetteAModifier
-	 * @param r
-	 * @return String
-	 */
-	public String editRecette(int recetteAModifier, Recette r) {
-		return livreRecettes.modifierRecette(recetteAModifier, r);
-	}
-
-	/**
-	 * Returns true if stockIngPizza was successfully added
-	 * 
-	 * @param amtCoffee
-	 * @param amtMilk
-	 * @param amtSugar
-	 * @param amtChocolate
-	 * @return boolean
-	 */
-	public void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
+	
+	public void ajouterstockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
 			throws StockException {
-		stockIngPizza.add(nbChorizo, "chorizo");
-		stockIngPizza.add(nbFrommage, "frommage");
-		stockIngPizza.add(nbJambon, "jambon");
-		stockIngPizza.add(nbChampignon, "champignon");
+		StockBoulangerie.add(nbBaguette, "chorizo");
+		StockBoulangerie.add(nbPainCampagne, "frommage");
+		StockBoulangerie.add(nbCroissant, "jambon");
+		StockBoulangerie.add(nbPainChocolat, "champignon");
 	}
 
-	/**
-	 * Returns the stockIngPizza of the coffee maker
-	 * 
-	 * @return stockIngPizza
-	 */
-	public String verifierStockIngPizza() {
-		return stockIngPizza.toString();
+	public String verifierstockBoulangerie() {
+		return stockBoulangerie.toString();
 	}
 
-	/**
-	 * Returns the change of a user's beverage purchase, or the user's money if the
-	 * beverage cannot be made
-	 * 
-	 * @param RecetteNb
-	 * @param amtPaid
-	 * @return int
-	 */
-	public int makeCoffee(int recetteNb, int montantPayer) {
+	public int makeCoffee(int commandeNb, int montantPayer) {
 		int monnaie = 0;
 
-		final Recette recetteSelectionner = getToutesRecettes()[recetteNb];
+		final Commande recetteSelectionner = getToutesCommandes()[commandeNb];
 		final int prixNourriture = recetteSelectionner != null
 				? recetteSelectionner.getPrix()
 				: null;
 		if ((recetteSelectionner != null) 
 				&& (prixNourriture <= montantPayer) 
-				&& (stockIngPizza.utiliserIngredients(recetteSelectionner))) {
+				&& (stockBoulangerie.utiliserProduit(recetteSelectionner))) {
 			monnaie = montantPayer - prixNourriture;
 		} else {
 			monnaie = montantPayer;
@@ -103,12 +56,7 @@ public class BoulangerieMaker {
 		return monnaie;
 	}
 
-	/**
-	 * Returns the list of Recettes in the livreRecettes.
-	 * 
-	 * @return Recette []
-	 */
-	public Recette[] getToutesRecettes() {
-		return livreRecettes.getRecettes();
+	public Commande[] getToutesCommandes() {
+		return commandes.getCommandes();
 	}
 }

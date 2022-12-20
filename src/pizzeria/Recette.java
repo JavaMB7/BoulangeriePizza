@@ -1,25 +1,17 @@
 package pizzeria;
 
 import exception.*;
+import maker.Composition;
 
-public class Recette {
-    private String nom;
-    private int prix;
+public class Recette extends Composition {
+	
     private int nbFrommage;
     private int nbChampignon;
     private int nbJambon;
     private int nbChorizo;
-    private static final String ENTIER_NEGATIF = "La quantité à affecter doit être positive";
-    
-    private void paramInvalide() throws RecetteException {
-		throw new RecetteException(ENTIER_NEGATIF);
-	}
-    /**
-     * Creer des pizzas par défault pour la machine a pizza
-     */
+
     public Recette() {
-    	this.nom = "";
-    	this.prix = 0;
+    	super();
     	this.nbFrommage = 0;
     	this.nbChampignon = 0;
     	this.nbJambon = 0;
@@ -30,7 +22,7 @@ public class Recette {
 		return nbChorizo;
 	}
 
-    public void setNbChorizo(int chorizo) throws RecetteException {
+    public void setNbChorizo(int chorizo) throws CompositionException {
 		if (chorizo >= 0) {
 			this.nbChorizo = chorizo;
 		} else {
@@ -42,7 +34,7 @@ public class Recette {
 		return nbFrommage;
 	}
 
-    public void setNbFrommage(int frommage) throws RecetteException {
+    public void setNbFrommage(int frommage) throws CompositionException {
     	if (frommage >= 0) {
 			this.nbFrommage = frommage;
 		} else {
@@ -54,7 +46,7 @@ public class Recette {
 		return nbChampignon;
 	}
 
-    public void setNbChampignon(int champignon) throws RecetteException{
+    public void setNbChampignon(int champignon) throws CompositionException{
     	if (champignon >= 0) {
 			this.nbChampignon = champignon;
 		} else {
@@ -66,49 +58,23 @@ public class Recette {
 		return nbJambon;
 	}
 
-    public void setNbJambon(int jambon) throws RecetteException {
+    public void setNbJambon(int jambon) throws CompositionException {
     	if (jambon >= 0) {
 			this.nbJambon = jambon;
 		} else {
 			paramInvalide();
 		}
 	}
-
-    public String getNom() {
-		return nom;
-	}
-
-    public void setNom(String nom) {
-    	if(nom != null) {
-    		this.nom = nom;
-    	}
-	}
-
-    public int getPrix() {
-		return prix;
-	}
-
-    public void setPrix(int prix) throws RecetteException{
-    	if (prix >= 0) {
-			this.prix = prix;
-		} else {
-			paramInvalide();
-		}
-	} 
     
-    public String toString() {
-    	return nom;
-    }
-
-	@Override
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		return result;
 	}
-
-	@Override
+    
+    @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -124,5 +90,4 @@ public class Recette {
 			return false;
 		return true;
 	}
-
 }

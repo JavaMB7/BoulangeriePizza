@@ -1,6 +1,6 @@
 package pizzeria;
 
-import exception.RecetteException;
+import exception.CompositionException;
 import exception.StockException;
 
 public class StockIngPizza {
@@ -128,7 +128,7 @@ public class StockIngPizza {
     	return buf.toString();
     }
     
-    public static void main(String[] args) throws StockException, RecetteException {
+    public static void main(String[] args) throws StockException, CompositionException {
 		StockIngPizza stock = new StockIngPizza();
 		System.out.println(stock.toString());
 		

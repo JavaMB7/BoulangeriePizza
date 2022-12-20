@@ -1,14 +1,13 @@
 package boulagerie;
 
-import exception.RecetteException;
 import exception.StockException;
 
 public class StockBoulangerie {
     
-    private static int frommage;
-    private static int champignon;
-    private static int jambon;
-    private static int chorizo;
+    private static int baguette;
+    private static int painCampagne;
+    private static int croissant;
+    private static int painChocolat;
     
     public StockBoulangerie() {
     	setBaguette(15);
@@ -17,61 +16,61 @@ public class StockBoulangerie {
     	setPainChocolat(15);
     }
     
-    public int getChorizo() {
-        return chorizo;
+    public int getBaguette() {
+        return baguette;
     }
     
-    public synchronized int getFromage() {
-        return frommage;
+    public int getPainCampagne() {
+        return painCampagne;
     }
     
-    public int getChampignon() {
-        return champignon;
+    public int getCroissant() {
+        return croissant;
     }
     
-    public int getJambon() {
-        return jambon;
+    public int getPainChocolat() {
+        return painChocolat;
     }
 
-    public static void setJambon(int jambon) {
-    	if(jambon >= 0) {
-    		StockBoulangerie.jambon = jambon;
+    public static void setBaguette(int baguette) {
+    	if(baguette >= 0) {
+    		StockBoulangerie.baguette = baguette;
     	}
     }
 
-    public static void setChampignon(int champignon) {
-    	if(champignon >= 0) {
-    		StockBoulangerie.champignon = champignon;
+    public static void setPainCampagne(int painCampagne) {
+    	if(painCampagne >= 0) {
+    		StockBoulangerie.painCampagne = painCampagne;
     	}
     }
     
-    public synchronized void setFromage(int fromage) {
-    	if(fromage >= 0) {
-    		StockBoulangerie.frommage = fromage;
+    public static void setCroissant(int croissant) {
+    	if(croissant >= 0) {
+    		StockBoulangerie.croissant = croissant;
     	}
     }
     
-    public static void setChorizo(int chorizo) {
-    	if(chorizo >= 0) {
-    		StockBoulangerie.chorizo = chorizo;
+    public static void setPainChocolat(int painChocolat) {
+    	if(painChocolat >= 0) {
+    		StockBoulangerie.painChocolat = painChocolat;
     	}
         
     }
     
-    public void add(int quantite, String produit) throws StockException {
+    public static void add(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
-			case "frommage" :
-				StockBoulangerie.frommage += quantite;
+			case "baguette" :
+				StockBoulangerie.baguette += quantite;
 				break;
-			case "chorizo" :
-				StockBoulangerie.chorizo += quantite;
+			case "pain campagne" :
+				StockBoulangerie.painCampagne += quantite;
 				break;
-			case "champignon" :
-				StockBoulangerie.champignon += quantite;
+			case "croissant" :
+				StockBoulangerie.croissant += quantite;
 				break;
-			case "jambon" :
-				StockBoulangerie.jambon += quantite;
+			case "pain chocolat" :
+				StockBoulangerie.painChocolat += quantite;
 				break;
 			default :
 				throw new StockException(produit+":ne fait pas partie des éléments à ajouter");
@@ -82,76 +81,49 @@ public class StockBoulangerie {
     }
     
     
-//    public boolean assezdIngredients(Recette r) {
-//        boolean isEnough = true;
-//        if(StockIngPizza.frommage < r.getNbFrommage()) {
-//            isEnough = false;
-//        }
-//        if(StockIngPizza.champignon < r.getNbChampignon()) {
-//            isEnough = false;
-//        }
-//        if(StockIngPizza.jambon < r.getNbJambon()) {
-//            isEnough = false;
-//        }
-//        if(StockIngPizza.chorizo < r.getNbChorizo()) {
-//            isEnough = false;
-//        }
-//        return isEnough;
-//    }
-//    
-//    public synchronized boolean utiliserIngredients(Recette r) {
-//    	if (assezdIngredients(r)) {
-//	    	StockIngPizza.frommage -= r.getNbFrommage();
-//	    	StockIngPizza.champignon -= r.getNbChampignon();
-//	    	StockIngPizza.jambon -= r.getNbJambon();
-//	    	StockIngPizza.chorizo -= r.getNbChorizo();
-//	    	return true;
-//    	} else {
-//    		return false;
-//    	}
-//    }
+    public boolean assezDeProduit(Commande c) {
+        boolean isEnough = true;
+        if(StockBoulangerie.baguette < c.getNbBaguette()) {
+            isEnough = false;
+        }
+        if(StockBoulangerie.painCampagne < c.getNbPainCampagne()) {
+            isEnough = false;
+        }
+        if(StockBoulangerie.croissant < c.getNbCroissant()) {
+            isEnough = false;
+        }
+        if(StockBoulangerie.painChocolat < c.getNbPainChocolat()) {
+            isEnough = false;
+        }
+        return isEnough;
+    }
+    
+    public synchronized boolean utiliserProduit(Commande c) {
+    	if (assezDeProduit(c)) {
+    		StockBoulangerie.baguette -= c.getNbBaguette();
+	    	StockBoulangerie.painCampagne -= c.getNbPainCampagne();
+	    	StockBoulangerie.croissant -= c.getNbCroissant();
+	    	StockBoulangerie.painChocolat -= c.getNbPainChocolat();
+	    	return true;
+    	} else {
+    		return false;
+    	}
+    }
     
     public String toString() {
     	StringBuilder buf = new StringBuilder();
-    	buf.append("Frommage: ");
-    	buf.append(getFromage());
+    	buf.append("Baguette: ");
+    	buf.append(getBaguette());
     	buf.append("\n");
-    	buf.append("Champignon: ");
-    	buf.append(getChampignon());
+    	buf.append("Pain Campagne: ");
+    	buf.append(getPainCampagne());
     	buf.append("\n");
-    	buf.append("Jambon: ");
-    	buf.append(getJambon());
+    	buf.append("Croissant: ");
+    	buf.append(getCroissant());
     	buf.append("\n");
-    	buf.append("Chorizo: ");
-    	buf.append(getChorizo());
+    	buf.append("Pain Chocolat: ");
+    	buf.append(getPainChocolat());
     	buf.append("\n");
     	return buf.toString();
     }
-    
-//    public static void main(String[] args) throws StockException, RecetteException {
-//		StockIngPizza stock = new StockIngPizza();
-//		System.out.println(stock.toString());
-//		
-//		Recette r1;
-//		// Set up for r1
-//				r1 = new Recette();
-//				r1.setNom("Coffee");
-//				r1.setNbChorizo(4);
-//				r1.setNbChampignon(3);
-//				r1.setNbFrommage(6);
-//				r1.setNbJambon(0);
-//				r1.setPrix(14);
-//		try {
-//			stock.add(5, "frommage");
-//			stock.add(5, "champignon");
-//			stock.add(5, "jambon");
-//			stock.add(5, "chorizo");
-//		} catch (StockException e) {
-//			throw new StockException("Erreur");
-//		}
-//		System.out.println(stock.toString());
-//		System.out.println(stock.assezdIngredients(r1));
-//		stock.utiliserIngredients(r1);
-//		System.out.println(stock.toString());
-//	}
 }

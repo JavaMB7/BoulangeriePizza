@@ -3,63 +3,27 @@ package pizzeria;
 import exception.*;
 
 public class PizzaMaker {
-	/** Array of Recettes in coffee maker */
+
 	private static LivreRecettes livreRecettes;
-	/** stockIngPizza of the coffee maker */
 	private static StockIngPizza stockIngPizza;
 
-	/**
-	 * Constructor for the coffee maker
-	 *
-	 */
 	public PizzaMaker() {
 		livreRecettes = new LivreRecettes();
 		stockIngPizza = new StockIngPizza();
 	}
 
-	/**
-	 * Returns true if the Recette is added to the list of Recettes in the CoffeeMaker
-	 * and false otherwise.
-	 * 
-	 * @param r
-	 * @return boolean
-	 */
-	public boolean addRecette(Recette r) {
+	public boolean ajoutRecette(Recette r) {
 		return livreRecettes.ajouterRecette(r);
 	}
 
-	/**
-	 * Returns the name of the successfully deleted Recette or null if the Recette
-	 * cannot be deleted.
-	 * 
-	 * @param recetteASuppr
-	 * @return String
-	 */
-	public String deleteRecette(int recetteASuppr) {
+	public String supprRecettes(int recetteASuppr) {
 		return livreRecettes.supprimerRecette(recetteASuppr);
 	}
 
-	/**
-	 * Returns the name of the successfully edited Recette or null if the Recette
-	 * cannot be edited.
-	 * 
-	 * @param recetteAModifier
-	 * @param r
-	 * @return String
-	 */
-	public String editRecette(int recetteAModifier, Recette r) {
+	public String modifRecettes(int recetteAModifier, Recette r) {
 		return livreRecettes.modifierRecette(recetteAModifier, r);
 	}
 
-	/**
-	 * Returns true if stockIngPizza was successfully added
-	 * 
-	 * @param amtCoffee
-	 * @param amtMilk
-	 * @param amtSugar
-	 * @param amtChocolate
-	 * @return boolean
-	 */
 	public void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
 			throws StockException {
 		stockIngPizza.add(nbChorizo, "chorizo");
@@ -68,24 +32,11 @@ public class PizzaMaker {
 		stockIngPizza.add(nbChampignon, "champignon");
 	}
 
-	/**
-	 * Returns the stockIngPizza of the coffee maker
-	 * 
-	 * @return stockIngPizza
-	 */
 	public String verifierStockIngPizza() {
 		return stockIngPizza.toString();
 	}
 
-	/**
-	 * Returns the change of a user's beverage purchase, or the user's money if the
-	 * beverage cannot be made
-	 * 
-	 * @param RecetteNb
-	 * @param amtPaid
-	 * @return int
-	 */
-	public int makeCoffee(int recetteNb, int montantPayer) {
+	public int makePizza(int recetteNb, int montantPayer) {
 		int monnaie = 0;
 
 		final Recette recetteSelectionner = getToutesRecettes()[recetteNb];
@@ -103,11 +54,6 @@ public class PizzaMaker {
 		return monnaie;
 	}
 
-	/**
-	 * Returns the list of Recettes in the livreRecettes.
-	 * 
-	 * @return Recette []
-	 */
 	public Recette[] getToutesRecettes() {
 		return livreRecettes.getRecettes();
 	}
