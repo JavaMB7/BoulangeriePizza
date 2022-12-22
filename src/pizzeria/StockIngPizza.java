@@ -58,7 +58,7 @@ public class StockIngPizza {
         
     }
     
-    public void add(int quantite, String produit) throws StockException {
+    public synchronized void add(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
 			case "frommage" :
@@ -133,7 +133,6 @@ public class StockIngPizza {
 		System.out.println(stock.toString());
 		
 		Recette r1;
-		// Set up for r1
 				r1 = new Recette();
 				r1.setNom("Coffee");
 				r1.setNbChorizo(4);

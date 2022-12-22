@@ -5,7 +5,6 @@ public class ListeCommandes {
 	private Commande[] tabCommande;
 	private static final int NB_COMMANDES = 4;
 	
-
 	public ListeCommandes() {
 		tabCommande = new Commande[NB_COMMANDES];
 	}

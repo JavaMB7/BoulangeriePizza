@@ -5,7 +5,7 @@ import exception.CompositionException;
 public class Composition {
 
 	protected String nom;
-	protected int prix;
+	protected double prix;
 	
 	private static final String ENTIER_NEGATIF = "La quantité à affecter doit être positive";
 	
@@ -28,13 +28,13 @@ public class Composition {
 		}
 	}
 
-	public int getPrix() {
+	public double getPrix() {
 		return prix;
 	}
 
-	public void setPrix(int prix) throws CompositionException {
-		if (prix >= 0) {
-			this.prix = prix;
+	public void setPrix(double d) throws CompositionException {
+		if (d >= 0) {
+			this.prix = d;
 		} else {
 			paramInvalide();
 		}

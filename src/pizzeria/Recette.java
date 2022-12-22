@@ -90,4 +90,23 @@ public class Recette extends Composition {
 			return false;
 		return true;
 	}
+    
+    public static void main(String[] args) throws CompositionException { 		
+ 		Recette r1;
+ 				r1 = new Recette();
+ 				r1.setNom("Pizza speciale");
+ 				r1.setNbFrommage(4);
+ 				r1.setNbChampignon(3);
+ 				r1.setNbJambon(6);
+ 				r1.setNbChorizo(0);
+ 				r1.setPrix(14);
+
+ 		System.out.println(r1.getNom());
+ 		System.out.println(r1.getPrix());
+ 		System.out.println(r1.getNbFrommage());
+ 		System.out.println(r1.getNbChampignon());
+ 		System.out.println(r1.getNbJambon());
+ 		System.out.println(r1.getNbChorizo());
+ 		
+ 	}
 }

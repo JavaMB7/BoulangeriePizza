@@ -4,8 +4,8 @@ import exception.*;
 
 public class PizzaMaker {
 
-	private static LivreRecettes livreRecettes;
-	private static StockIngPizza stockIngPizza;
+	private LivreRecettes livreRecettes;
+	private StockIngPizza stockIngPizza;
 
 	public PizzaMaker() {
 		livreRecettes = new LivreRecettes();
@@ -24,7 +24,7 @@ public class PizzaMaker {
 		return livreRecettes.modifierRecette(recetteAModifier, r);
 	}
 
-	public void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
+	public synchronized void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
 			throws StockException {
 		stockIngPizza.add(nbChorizo, "chorizo");
 		stockIngPizza.add(nbFrommage, "frommage");
@@ -32,15 +32,16 @@ public class PizzaMaker {
 		stockIngPizza.add(nbChampignon, "champignon");
 	}
 
+	// Maybe
 	public String verifierStockIngPizza() {
 		return stockIngPizza.toString();
 	}
 
-	public int makePizza(int recetteNb, int montantPayer) {
-		int monnaie = 0;
+	public double fairePizza(int recetteNb, int montantPayer) {
+		double monnaie = 0;
 
 		final Recette recetteSelectionner = getToutesRecettes()[recetteNb];
-		final int prixNourriture = recetteSelectionner != null
+		final double prixNourriture = recetteSelectionner != null
 				? recetteSelectionner.getPrix()
 				: null;
 		if ((recetteSelectionner != null) 

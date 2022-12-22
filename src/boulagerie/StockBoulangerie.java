@@ -1,5 +1,6 @@
 package boulagerie;
 
+import exception.CompositionException;
 import exception.StockException;
 
 public class StockBoulangerie {
@@ -57,7 +58,7 @@ public class StockBoulangerie {
         
     }
     
-    public static void add(int quantite, String produit) throws StockException {
+    public synchronized void add(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
 			case "baguette" :
@@ -126,4 +127,30 @@ public class StockBoulangerie {
     	buf.append("\n");
     	return buf.toString();
     }
+    
+    public static void main(String[] args) throws StockException, CompositionException {
+ 		StockBoulangerie stock = new StockBoulangerie();
+ 		System.out.println(stock.toString());
+ 		
+ 		Commande c1;
+ 				c1 = new Commande();
+ 				c1.setNom("Commande speciale");
+ 				c1.setNbBaguette(4);
+ 				c1.setNbCroissant(3);
+ 				c1.setNbPainCampagne(6);
+ 				c1.setNbPainChocolat(0);
+ 				c1.setPrix(14);
+ 		try {
+ 			stock.add(5, "baguette");
+ 			stock.add(5, "croissant");
+ 			stock.add(5, "pain campagne");
+ 			stock.add(5, "pain chocolat");
+ 		} catch (StockException e) {
+ 			throw new StockException("Erreur");
+ 		}
+ 		System.out.println(stock.toString());
+ 		System.out.println(stock.assezDeProduit(c1));
+ 		stock.utiliserProduit(c1);
+ 		System.out.println(stock.toString());
+ 	}
 }

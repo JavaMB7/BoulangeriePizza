@@ -34,7 +34,7 @@ public class Commande extends Composition {
 		return nbPainCampagne;
 	}
 
-    public void setNbFrommage(int painCampagne) throws CompositionException {
+    public void setNbPainCampagne(int painCampagne) throws CompositionException {
     	if (painCampagne >= 0) {
 			this.nbPainCampagne = painCampagne;
 		} else {
@@ -46,7 +46,7 @@ public class Commande extends Composition {
 		return nbCroissant;
 	}
 
-    public void setNbChampignon(int croissant) throws CompositionException{
+    public void setNbCroissant(int croissant) throws CompositionException{
     	if (croissant >= 0) {
 			this.nbCroissant = croissant;
 		} else {
@@ -58,7 +58,7 @@ public class Commande extends Composition {
 		return nbPainChocolat;
 	}
 
-    public void setNbJambon(int painChocolat) throws CompositionException {
+    public void setNbPainChocolat(int painChocolat) throws CompositionException {
     	if (painChocolat >= 0) {
 			this.nbPainChocolat = painChocolat;
 		} else {
@@ -90,5 +90,24 @@ public class Commande extends Composition {
 			return false;
 		return true;
 	}
+    
+    public static void main(String[] args) throws CompositionException { 		
+ 		Commande c1;
+ 				c1 = new Commande();
+ 				c1.setNom("Commande speciale");
+ 				c1.setNbBaguette(4);
+ 				c1.setNbCroissant(3);
+ 				c1.setNbPainCampagne(6);
+ 				c1.setNbPainChocolat(0);
+ 				c1.setPrix(14);
+
+ 		System.out.println(c1.getNom());
+ 		System.out.println(c1.getPrix());
+ 		System.out.println(c1.getNbBaguette());
+ 		System.out.println(c1.getNbCroissant());
+ 		System.out.println(c1.getNbPainCampagne());
+ 		System.out.println(c1.getNbPainChocolat());
+ 		
+ 	}
 
 }

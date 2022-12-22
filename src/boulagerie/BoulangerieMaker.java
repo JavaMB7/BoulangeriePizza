@@ -1,12 +1,11 @@
 package boulagerie;
 
 import exception.*;
-import pizzeria.Recette;
 
 public class BoulangerieMaker {
 	
-	private static ListeCommandes commandes;
-	private static StockBoulangerie stockBoulangerie;
+	private ListeCommandes commandes;
+	private StockBoulangerie stockBoulangerie;
 
 	public BoulangerieMaker() {
 		commandes = new ListeCommandes();
@@ -26,23 +25,23 @@ public class BoulangerieMaker {
 	}
 
 	
-	public void ajouterstockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
+	public synchronized void ajouterstockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
 			throws StockException {
-		StockBoulangerie.add(nbBaguette, "chorizo");
-		StockBoulangerie.add(nbPainCampagne, "frommage");
-		StockBoulangerie.add(nbCroissant, "jambon");
-		StockBoulangerie.add(nbPainChocolat, "champignon");
+		stockBoulangerie.add(nbBaguette, "chorizo");
+		stockBoulangerie.add(nbPainCampagne, "frommage");
+		stockBoulangerie.add(nbCroissant, "jambon");
+		stockBoulangerie.add(nbPainChocolat, "champignon");
 	}
 
 	public String verifierstockBoulangerie() {
 		return stockBoulangerie.toString();
 	}
 
-	public int makeCoffee(int commandeNb, int montantPayer) {
-		int monnaie = 0;
+	public double vendrePain(int commandeNb, int montantPayer) {
+		double monnaie = 0;
 
 		final Commande recetteSelectionner = getToutesCommandes()[commandeNb];
-		final int prixNourriture = recetteSelectionner != null
+		final double prixNourriture = recetteSelectionner != null
 				? recetteSelectionner.getPrix()
 				: null;
 		if ((recetteSelectionner != null) 
