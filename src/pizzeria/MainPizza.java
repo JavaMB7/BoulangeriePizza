@@ -3,6 +3,7 @@ package pizzeria;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 import exception.*;
 
@@ -24,7 +25,7 @@ public class MainPizza {
     private static final String ENTREE_CHORIZO = "\nVeuillez entrer la quantite de chorizo souhaité :";
 
     public static void mainMenu() {
-        System.out.println("1. Ajouter une recette");
+        System.out.println("\n1. Ajouter une recette");
         System.out.println("2. Supprimer une recette");
         System.out.println("3. Modifier une recette");
         System.out.println("4. Ajouter au stock");
@@ -93,7 +94,8 @@ public class MainPizza {
     }
     
     private static double calculPrix(Recette r) {
-		return r.getNbFrommage()*prixFrommage + r.getNbChampignon()*prixChampignon + r.getNbJambon()*prixJambon + r.getNbChorizo()*prixChorizo;
+    	return r.getNbFrommage()*prixFrommage + r.getNbChampignon()*prixChampignon + r.getNbJambon()*prixJambon + r.getNbChorizo()*prixChorizo;
+		 
 	}
 
 	public static void supprimerRecette() {
@@ -202,12 +204,13 @@ public class MainPizza {
         } else {
         	System.out.println("Merci d'avoir acheter " + pizzaMaker.getToutesRecettes()[recetteAAcheter].getNom());
         }
-        System.out.println("Votre change est de : " + change + "\n");
+        DecimalFormat df = new DecimalFormat("0.00");
+        System.out.println("Votre change est de :  "+ df.format(change) + " € \n");
         mainMenu();
     }
     
-    private static String inputOutput(String message) {
-        System.out.println(message);
+    public static String inputOutput(String message) {
+	    System.out.println(message);
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    String chaineRetourner = "";
 	    try {
@@ -218,25 +221,25 @@ public class MainPizza {
 	        mainMenu();
 	    }
 	    return chaineRetourner;
-    }
+	}
     
-    private static int recipeListSelection(String message) {
-    	String selectionUtilisateur = inputOutput(message);
-    	int recette = 0;
-        try {
-        	recette = Integer.parseInt(selectionUtilisateur) - 1;
-        	if (recette >= 0 && recette <=2) {
-        	} else {
-        		recette = -1;
-        	}
-        } catch (NumberFormatException e) {
-        	System.out.println("Entrer un numéro entre from 1-3.");
-        	recette = -1;
-        }
-        return recette;
-    }
+    public static int recipeListSelection(String message) {
+		String selectionUtilisateur = inputOutput(message);
+		int recette = 0;
+	    try {
+	    	recette = Integer.parseInt(selectionUtilisateur) - 1;
+	    	if (recette >= 0 && recette <=2) {
+	    		//ne rien faire
+	    	} else {
+	    		recette = -1;
+	    	}
+	    } catch (NumberFormatException e) {
+	    	System.out.println("Entrer un numéro entre 1-3.");
+	    	recette = -1;
+	    }
+	    return recette;
+	}
     
-
     public static void main(String[] args) {
 	    pizzaMaker = new PizzaMaker();
 	    System.out.println("Bienvenue à PizzaMaker !\n");

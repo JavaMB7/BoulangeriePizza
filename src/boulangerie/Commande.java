@@ -1,4 +1,4 @@
-package boulagerie;
+package boulangerie;
 
 import exception.*;
 import maker.Composition;

@@ -1,4 +1,4 @@
-package boulagerie;
+package boulangerie;
 
 public class ListeCommandes {
 	
@@ -36,9 +36,9 @@ public class ListeCommandes {
 
 	public String supprimerCommande(int commandeASupprimer) {
 		if (tabCommande[commandeASupprimer] != null) {
-			String recipeName = tabCommande[commandeASupprimer].getNom();
+			String nomCommande = tabCommande[commandeASupprimer].getNom();
 			tabCommande[commandeASupprimer] = new Commande();
-			return recipeName;
+			return nomCommande;
 		} else {
 			return null;
 		}
@@ -46,10 +46,10 @@ public class ListeCommandes {
 	
 	public synchronized String modifierCommande(int commandeAModifier, Commande nvCommande) {
 		if (tabCommande[commandeAModifier] != null) {
-			String recipeName = tabCommande[commandeAModifier].getNom();
+			String nomCommande = tabCommande[commandeAModifier].getNom();
 			nvCommande.setNom("");
 			tabCommande[commandeAModifier] = nvCommande;
-			return recipeName;
+			return nomCommande;
 		} else {
 			return null;
 		}

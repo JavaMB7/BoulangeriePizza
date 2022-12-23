@@ -1,4 +1,4 @@
-package boulagerie;
+package boulangerie;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 import exception.*;
 
-public class MainBoulagerie {
+public class MainBoulangerie {
     private static BoulangerieMaker boulangerieMaker;
     
     private static double prixBaguette = 1.2;
@@ -24,7 +24,7 @@ public class MainBoulagerie {
     private static final String ENTREE_PAIN_CHOCOLAT = "\nVeuillez entrer la quantite de pain au chocolat souhaité :";
 
     public static void mainMenu() {
-        System.out.println("1. Ajouter une commande");
+        System.out.println("\n1. Ajouter une commande");
         System.out.println("2. Supprimer une commande");
         System.out.println("3. Modifier une commande");
         System.out.println("4. Ajouter au stock");
@@ -69,16 +69,16 @@ public class MainBoulagerie {
 	    	    
 	    String painChocolatEntre = inputOutput(ENTREE_PAIN_CHOCOLAT);
 	    	    
-		Commande r = new Commande();
+		Commande c = new Commande();
 		try {
-			r.setNom(nom);
-			r.setNbBaguette(Integer.parseInt(baguetteEntre));
-			r.setNbPainCampagne(Integer.parseInt(painCampagneEntre));
-			r.setNbCroissant(Integer.parseInt(croissantEntre));
-			r.setNbPainChocolat(Integer.parseInt(painChocolatEntre));
-			r.setPrix(calculPrix(r));
+			c.setNom(nom);
+			c.setNbBaguette(Integer.parseInt(baguetteEntre));
+			c.setNbPainCampagne(Integer.parseInt(painCampagneEntre));
+			c.setNbCroissant(Integer.parseInt(croissantEntre));
+			c.setNbPainChocolat(Integer.parseInt(painChocolatEntre));
+			c.setPrix(calculPrix(c));
 			
-			boolean recipeAdded = boulangerieMaker.ajoutCommande(r);
+			boolean recipeAdded = boulangerieMaker.ajoutCommande(c);
 		    
 		    if(recipeAdded) {
 		    	System.out.println(nom + " ajouté avec succès.\n");
@@ -207,8 +207,8 @@ public class MainBoulagerie {
         mainMenu();
     }
     
-    private static String inputOutput(String message) {
-        System.out.println(message);
+    public static String inputOutput(String message) {
+	    System.out.println(message);
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    String chaineRetourner = "";
 	    try {
@@ -219,25 +219,25 @@ public class MainBoulagerie {
 	        mainMenu();
 	    }
 	    return chaineRetourner;
-    }
+	}
     
-    private static int recipeListSelection(String message) {
-    	String selectionUtilisateur = inputOutput(message);
-    	int commande = 0;
-        try {
-        	commande = Integer.parseInt(selectionUtilisateur) - 1;
-        	if (commande >= 0 && commande <=2) {
-        	} else {
-        		commande = -1;
-        	}
-        } catch (NumberFormatException e) {
-        	System.out.println("Entrer un numéro entre 1-3.");
-        	commande = -1;
-        }
-        return commande;
-    }
+    public static int recipeListSelection(String message) {
+		String selectionUtilisateur = inputOutput(message);
+		int commande = 0;
+	    try {
+	    	commande = Integer.parseInt(selectionUtilisateur) - 1;
+	    	if (commande >= 0 && commande <=2) {
+	    		//ne rien faire
+	    	} else {
+	    		commande = -1;
+	    	}
+	    } catch (NumberFormatException e) {
+	    	System.out.println("Entrer un numéro entre 1-3.");
+	    	commande = -1;
+	    }
+	    return commande;
+	}
     
-
     public static void main(String[] args) {
 	    boulangerieMaker = new BoulangerieMaker();
 	    System.out.println("Bienvenue à BoulangerieMaker !\n");
