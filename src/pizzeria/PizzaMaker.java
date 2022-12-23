@@ -16,11 +16,11 @@ public class PizzaMaker {
 		return livreRecettes.ajouterRecette(r);
 	}
 
-	public String supprRecettes(int recetteASuppr) {
+	public String supprRecette(int recetteASuppr) {
 		return livreRecettes.supprimerRecette(recetteASuppr);
 	}
 
-	public String modifRecettes(int recetteAModifier, Recette r) {
+	public String modifRecette(int recetteAModifier, Recette r) {
 		return livreRecettes.modifierRecette(recetteAModifier, r);
 	}
 

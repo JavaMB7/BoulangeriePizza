@@ -18,13 +18,14 @@ public class MainBoulangerie {
     private static final String NB_COMMANDE_MODIF = "Merci de rentrer le numero de la commande à modifier";
     private static final String NB_COMMANDE_ACHETER = "Merci de rentrer le numero de la commande à acheter";
     
+    private static final String ENTREE_NOM = "\nVeuillez entrer le nom de la commande : ";
     private static final String ENTREE_BAGUETTE = "\nVeuillez entrer la quantite de baguette souhaité :";
     private static final String ENTREE_PAIN_CAMPAGNE = "\nVeuillez entrer la quantite de pain campagne souhaité :";
     private static final String ENTREE_CROISSANT = "\nVeuillez entrer la quantite de croissant souhaité :";
     private static final String ENTREE_PAIN_CHOCOLAT = "\nVeuillez entrer la quantite de pain au chocolat souhaité :";
 
     public static void mainMenu() {
-        System.out.println("\n1. Ajouter une commande");
+        System.out.println("1. Ajouter une commande");
         System.out.println("2. Supprimer une commande");
         System.out.println("3. Modifier une commande");
         System.out.println("4. Ajouter au stock");
@@ -59,7 +60,7 @@ public class MainBoulangerie {
      */
 	public static void ajouterCommande() {
 		
-	    String nom = inputOutput("\nVeuillez entrer le nom de la commande : ");
+	    String nom = inputOutput(ENTREE_NOM);
 	    	    
 	    String baguetteEntre = inputOutput(ENTREE_BAGUETTE);
 	    	    
@@ -78,9 +79,9 @@ public class MainBoulangerie {
 			c.setNbPainChocolat(Integer.parseInt(painChocolatEntre));
 			c.setPrix(calculPrix(c));
 			
-			boolean recipeAdded = boulangerieMaker.ajoutCommande(c);
+			boolean commandeAjoutee = boulangerieMaker.ajoutCommande(c);
 		    
-		    if(recipeAdded) {
+		    if(commandeAjoutee) {
 		    	System.out.println(nom + " ajouté avec succès.\n");
 		    } else {
 		    	System.out.println(nom + " n'a pas pu être ajouté.\n");
@@ -117,7 +118,7 @@ public class MainBoulangerie {
         		System.out.println((i+1) + ". " + commandes[i].getNom());
         	}
         }
-        int commandeNb = recipeListSelection(message);
+        int commandeNb = selectionListeCommande(message);
         
 	    if(commandeNb < 0) {
 	    	mainMenu();
@@ -169,7 +170,7 @@ public class MainBoulangerie {
 	    String painChocolatEntre = inputOutput(ENTREE_PAIN_CHOCOLAT);
 	    	    
         try {
-        	boulangerieMaker.ajouterstockBoulangerie(Integer.parseInt(baguetteEntre), Integer.parseInt(painCampagneEntre)
+        	boulangerieMaker.ajouterStockBoulangerie(Integer.parseInt(baguetteEntre), Integer.parseInt(painCampagneEntre)
         			, Integer.parseInt(croissantEntre), Integer.parseInt(painChocolatEntre));
         	System.out.println("Produits ajoutés au stock avec succès");
         } catch (StockException e) {
@@ -221,7 +222,7 @@ public class MainBoulangerie {
 	    return chaineRetourner;
 	}
     
-    public static int recipeListSelection(String message) {
+    public static int selectionListeCommande(String message) {
 		String selectionUtilisateur = inputOutput(message);
 		int commande = 0;
 	    try {

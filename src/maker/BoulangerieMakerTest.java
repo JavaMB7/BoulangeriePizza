@@ -42,7 +42,7 @@ public class BoulangerieMakerTest {
 
 	@Test
 	public void testAjoutIngStockValeurErrone() throws StockException {
-		assertThrows(StockException.class, () -> { pm.ajouterstockBoulangerie(4, -1, 3, 2); });
+		assertThrows(StockException.class, () -> { pm.ajouterStockBoulangerie(4, -1, 3, 2); });
 	}
 	
 	@Test

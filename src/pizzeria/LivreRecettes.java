@@ -35,7 +35,7 @@ public class LivreRecettes {
 	public String supprimerRecette(int recetteASupprimer) {
 		if (tabRecette[recetteASupprimer] != null) {
 			String recipeName = tabRecette[recetteASupprimer].getNom();
-			tabRecette[recetteASupprimer] = new Recette();
+			tabRecette[recetteASupprimer] = null;
 			return recipeName;
 		} else {
 			return null;
@@ -45,7 +45,7 @@ public class LivreRecettes {
 	public synchronized String modifierRecette(int recetteAModifier, Recette nvRecette) {
 		if (tabRecette[recetteAModifier] != null) {
 			String recipeName = tabRecette[recetteAModifier].getNom();
-			nvRecette.setNom("");
+			nvRecette.setNom(recipeName);
 			tabRecette[recetteAModifier] = nvRecette;
 			return recipeName;
 		} else {

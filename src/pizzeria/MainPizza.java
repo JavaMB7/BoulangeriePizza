@@ -19,13 +19,14 @@ public class MainPizza {
     private static final String NB_RECETTE_MODIF = "Merci de rentrer le numero de la recette à modifier";
     private static final String NB_RECETTE_ACHETER = "Merci de rentrer le numero de la recette à acheter";
     
+    private static final String ENTREE_NOM = "\nVeuillez entrer le nom de la recette : ";
     private static final String ENTREE_FROMMAGE = "\nVeuillez entrer la quantite de frommage souhaité :";
     private static final String ENTREE_CHAMPIGNON = "\nVeuillez entrer la quantite de champignon souhaité :";
     private static final String ENTREE_JAMBON = "\nVeuillez entrer la quantite de jambon souhaité :";
     private static final String ENTREE_CHORIZO = "\nVeuillez entrer la quantite de chorizo souhaité :";
 
     public static void mainMenu() {
-        System.out.println("\n1. Ajouter une recette");
+        System.out.println("1. Ajouter une recette");
         System.out.println("2. Supprimer une recette");
         System.out.println("3. Modifier une recette");
         System.out.println("4. Ajouter au stock");
@@ -60,7 +61,7 @@ public class MainPizza {
      */
 	public static void ajouterRecette() {
 		
-	    String nom = inputOutput("\nVeuillez entrer le nom de la recette : ");
+	    String nom = inputOutput(ENTREE_NOM);
 	    	    
 	    String frommageEntre = inputOutput(ENTREE_FROMMAGE);
 	    	    
@@ -79,9 +80,9 @@ public class MainPizza {
 			r.setNbChorizo(Integer.parseInt(chorizoEntre));
 			r.setPrix(calculPrix(r));
 			
-			boolean recipeAdded = pizzaMaker.ajoutRecette(r);
+			boolean recetteAjoutee = pizzaMaker.ajoutRecette(r);
 		    
-		    if(recipeAdded) {
+		    if(recetteAjoutee) {
 		    	System.out.println(nom + " ajouté avec succès.\n");
 		    } else {
 		    	System.out.println(nom + " n'a pas pu être ajouté.\n");
@@ -101,7 +102,7 @@ public class MainPizza {
 	public static void supprimerRecette() {
         int recetteASupprimer = recupererListeRecettes(NB_RECETTE_SUPPR);
 	    
-        String recetteSuppr = pizzaMaker.supprRecettes(recetteASupprimer);
+        String recetteSuppr = pizzaMaker.supprRecette(recetteASupprimer);
         
         if (recetteSuppr != null) {
         	System.out.println(recetteSuppr + " supprimée avec succès.\n");
@@ -118,7 +119,7 @@ public class MainPizza {
         		System.out.println((i+1) + ". " + recettes[i].getNom());
         	}
         }
-        int recetteNb = recipeListSelection(message);
+        int recetteNb = selectionListeRecette(message);
         
 	    if(recetteNb < 0) {
 	    	mainMenu();
@@ -128,7 +129,7 @@ public class MainPizza {
     
     public static void modifierRecette() {
     	int recetteAModifier = recupererListeRecettes(NB_RECETTE_MODIF);
-	    
+    		    
     	String frommageEntre = inputOutput(ENTREE_FROMMAGE);
 	    
 	    String champignonEntre = inputOutput(ENTREE_CHAMPIGNON);
@@ -145,7 +146,7 @@ public class MainPizza {
 	    	nvRecette.setNbChorizo(Integer.parseInt(chorizoEntre));
 	    	nvRecette.setPrix(calculPrix(nvRecette));
 			
-			String recetteModifier = pizzaMaker.modifRecettes(recetteAModifier, nvRecette);
+			String recetteModifier = pizzaMaker.modifRecette(recetteAModifier, nvRecette);
 	        
 	        if (recetteModifier != null) {
 	        	System.out.println(recetteModifier + " modifier avec succès.\n");
@@ -223,7 +224,7 @@ public class MainPizza {
 	    return chaineRetourner;
 	}
     
-    public static int recipeListSelection(String message) {
+    public static int selectionListeRecette(String message) {
 		String selectionUtilisateur = inputOutput(message);
 		int recette = 0;
 	    try {

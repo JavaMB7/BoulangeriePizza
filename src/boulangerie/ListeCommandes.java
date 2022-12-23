@@ -37,7 +37,7 @@ public class ListeCommandes {
 	public String supprimerCommande(int commandeASupprimer) {
 		if (tabCommande[commandeASupprimer] != null) {
 			String nomCommande = tabCommande[commandeASupprimer].getNom();
-			tabCommande[commandeASupprimer] = new Commande();
+			tabCommande[commandeASupprimer] = null;
 			return nomCommande;
 		} else {
 			return null;
@@ -47,7 +47,7 @@ public class ListeCommandes {
 	public synchronized String modifierCommande(int commandeAModifier, Commande nvCommande) {
 		if (tabCommande[commandeAModifier] != null) {
 			String nomCommande = tabCommande[commandeAModifier].getNom();
-			nvCommande.setNom("");
+			nvCommande.setNom(nomCommande);
 			tabCommande[commandeAModifier] = nvCommande;
 			return nomCommande;
 		} else {

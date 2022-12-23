@@ -25,12 +25,12 @@ public class BoulangerieMaker {
 	}
 
 	
-	public synchronized void ajouterstockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
+	public synchronized void ajouterStockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
 			throws StockException {
-		stockBoulangerie.add(nbBaguette, "chorizo");
-		stockBoulangerie.add(nbPainCampagne, "frommage");
-		stockBoulangerie.add(nbCroissant, "jambon");
-		stockBoulangerie.add(nbPainChocolat, "champignon");
+		stockBoulangerie.add(nbBaguette, "baguette");
+		stockBoulangerie.add(nbPainCampagne, "pain campagne");
+		stockBoulangerie.add(nbCroissant, "croissant");
+		stockBoulangerie.add(nbPainChocolat, "pain chocolat");
 	}
 
 	public String verifierstockBoulangerie() {
