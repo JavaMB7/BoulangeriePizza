@@ -1,4 +1,4 @@
-package maker;
+package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -63,7 +63,6 @@ public class BoulangerieMakerTest {
 	public void testFairePizzaAvecPasAssezIngredients() {
 		pm.ajoutCommande(c2);
 		assertEquals(5, pm.vendrePain(0, 5));
-		
 	}
 	
 	@Test

@@ -36,16 +36,16 @@ public class MainPizza {
         
         //Get user input
         try {
-        	int userInput = Integer.parseInt(inputOutput("Merci d'appuyer sur la touche correspondante à ce que vous voulez que la machine fasse :"));
+        	int entreeUtilisateur = Integer.parseInt(inputOutput("Merci d'appuyer sur la touche correspondante à ce que vous voulez que la machine fasse :"));
         	
-        	if (userInput >= 0 && userInput <=6) {
-		        if (userInput == 1) ajouterRecette();
-		        if (userInput == 2) supprimerRecette();
-		        if (userInput == 3) modifierRecette();
-		        if (userInput == 4) ajouterStock();
-		        if (userInput == 5) verifierStock();
-		        if (userInput == 6) fairePizza();
-		        if (userInput == 0) System.exit(0);
+        	if (entreeUtilisateur >= 0 && entreeUtilisateur <=6) {
+		        if (entreeUtilisateur == 1) ajouterRecette();
+		        if (entreeUtilisateur == 2) supprimerRecette();
+		        if (entreeUtilisateur == 3) modifierRecette();
+		        if (entreeUtilisateur == 4) ajouterStock();
+		        if (entreeUtilisateur == 5) verifierStock();
+		        if (entreeUtilisateur == 6) fairePizza();
+		        if (entreeUtilisateur == 0) System.exit(0);
         	} else {
         		System.out.println("Entrer un numéro entre 0 - 6");
             	mainMenu();
@@ -100,7 +100,7 @@ public class MainPizza {
 	}
 
 	public static void supprimerRecette() {
-        int recetteASupprimer = recupererListeRecettes(NB_RECETTE_SUPPR);
+        int recetteASupprimer = recupererDansListeRecettes(NB_RECETTE_SUPPR);
 	    
         String recetteSuppr = pizzaMaker.supprRecette(recetteASupprimer);
         
@@ -112,7 +112,7 @@ public class MainPizza {
         mainMenu();
     }
 
-    private static int recupererListeRecettes(String message) {
+    private static int recupererDansListeRecettes(String message) {
 		Recette [] recettes = pizzaMaker.getToutesRecettes();
         for(int i = 0; i < recettes.length; i++) {
         	if (recettes[i] != null) {
@@ -128,7 +128,7 @@ public class MainPizza {
 	}
     
     public static void modifierRecette() {
-    	int recetteAModifier = recupererListeRecettes(NB_RECETTE_MODIF);
+    	int recetteAModifier = recupererDansListeRecettes(NB_RECETTE_MODIF);
     		    
     	String frommageEntre = inputOutput(ENTREE_FROMMAGE);
 	    
@@ -187,7 +187,7 @@ public class MainPizza {
     }
     
     public static void fairePizza() {
-        int recetteAAcheter = recupererListeRecettes(NB_RECETTE_ACHETER);
+        int recetteAAcheter = recupererDansListeRecettes(NB_RECETTE_ACHETER);
         
         String montantPayer = inputOutput("Merci de rentrer le montant à payer :");
         int mntPayer = 0;

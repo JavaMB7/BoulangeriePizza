@@ -58,7 +58,7 @@ public class StockBoulangerie {
         
     }
     
-    public synchronized void add(int quantite, String produit) throws StockException {
+    public synchronized void ajouter(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
 			case "baguette" :
@@ -141,10 +141,10 @@ public class StockBoulangerie {
  				c1.setNbPainChocolat(0);
  				c1.setPrix(14);
  		try {
- 			stock.add(5, "baguette");
- 			stock.add(5, "croissant");
- 			stock.add(5, "pain campagne");
- 			stock.add(5, "pain chocolat");
+ 			stock.ajouter(5, "baguette");
+ 			stock.ajouter(5, "croissant");
+ 			stock.ajouter(5, "pain campagne");
+ 			stock.ajouter(5, "pain chocolat");
  		} catch (StockException e) {
  			throw new StockException("Erreur");
  		}

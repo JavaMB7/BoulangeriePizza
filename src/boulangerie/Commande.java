@@ -1,7 +1,7 @@
 package boulangerie;
 
+import composition.Composition;
 import exception.*;
-import maker.Composition;
 
 public class Commande extends Composition {
     
@@ -65,32 +65,7 @@ public class Commande extends Composition {
 			paramInvalide();
 		}
 	}
-    
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		return result;
-	}
-    
-    @Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Commande other = (Commande) obj;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		return true;
-	}
-    
+        
     public static void main(String[] args) throws CompositionException { 		
  		Commande c1;
  				c1 = new Commande();

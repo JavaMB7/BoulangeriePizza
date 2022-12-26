@@ -1,4 +1,4 @@
-package maker;
+package composition;
 
 import exception.CompositionException;
 

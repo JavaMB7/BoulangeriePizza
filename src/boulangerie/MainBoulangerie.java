@@ -33,18 +33,17 @@ public class MainBoulangerie {
         System.out.println("6. Acheter dans la boulangerie");
         System.out.println("0. Quitter\n");
         
-        //Get user input
         try {
-        	int userInput = Integer.parseInt(inputOutput("Merci d'appuyer sur la touche correspondante à ce que vous voulez que la machine fasse :"));
+        	int entreeUtilisateur = Integer.parseInt(inputOutput("Merci d'appuyer sur la touche correspondante à ce que vous voulez que la machine fasse :"));
         	
-        	if (userInput >= 0 && userInput <=6) {
-		        if (userInput == 1) ajouterCommande();
-		        if (userInput == 2) supprimerCommande();
-		        if (userInput == 3) modifierCommande();
-		        if (userInput == 4) ajouterStock();
-		        if (userInput == 5) verifierStock();
-		        if (userInput == 6) vendrePain();
-		        if (userInput == 0) System.exit(0);
+        	if (entreeUtilisateur >= 0 && entreeUtilisateur <=6) {
+		        if (entreeUtilisateur == 1) ajouterCommande();
+		        if (entreeUtilisateur == 2) supprimerCommande();
+		        if (entreeUtilisateur == 3) modifierCommande();
+		        if (entreeUtilisateur == 4) ajouterStock();
+		        if (entreeUtilisateur == 5) verifierStock();
+		        if (entreeUtilisateur == 6) vendrePain();
+		        if (entreeUtilisateur == 0) System.exit(0);
         	} else {
         		System.out.println("Entrer un numéro entre 0 - 6");
             	mainMenu();
@@ -55,9 +54,6 @@ public class MainBoulangerie {
         }
     }
     
-    /**
-     * The add recipe user interface that process user input.
-     */
 	public static void ajouterCommande() {
 		
 	    String nom = inputOutput(ENTREE_NOM);
@@ -93,13 +89,13 @@ public class MainBoulangerie {
 		}
     }
     
-    private static double calculPrix(Commande r) {
-		return r.getNbBaguette()*prixBaguette + r.getNbPainCampagne()*prixPainCampagne
-				+ r.getNbCroissant()*prixCroissant + r.getNbPainChocolat()*prixPainChocolat;
+    private static double calculPrix(Commande c) {
+		return c.getNbBaguette()*prixBaguette + c.getNbPainCampagne()*prixPainCampagne
+				+ c.getNbCroissant()*prixCroissant + c.getNbPainChocolat()*prixPainChocolat;
 	}
 
 	public static void supprimerCommande() {
-        int commandeASupprimer = recupererListeCommandes(NB_COMMANDE_SUPPR);
+        int commandeASupprimer = recupererDansListeCommandes(NB_COMMANDE_SUPPR);
 	    
         String commandeSuppr = boulangerieMaker.supprCommande(commandeASupprimer);
         
@@ -111,7 +107,7 @@ public class MainBoulangerie {
         mainMenu();
     }
 
-    private static int recupererListeCommandes(String message) {
+    private static int recupererDansListeCommandes(String message) {
 		Commande [] commandes = boulangerieMaker.getToutesCommandes();
         for(int i = 0; i < commandes.length; i++) {
         	if (commandes[i] != null) {
@@ -127,7 +123,7 @@ public class MainBoulangerie {
 	}
     
     public static void modifierCommande() {
-    	int commandeAModifier = recupererListeCommandes(NB_COMMANDE_MODIF);
+    	int commandeAModifier = recupererDansListeCommandes(NB_COMMANDE_MODIF);
 	    
     	String baguetteEntre = inputOutput(ENTREE_BAGUETTE);
 	    
@@ -186,7 +182,7 @@ public class MainBoulangerie {
     }
     
     public static void vendrePain() {
-        int commandeAAcheter = recupererListeCommandes(NB_COMMANDE_ACHETER);
+        int commandeAAcheter = recupererDansListeCommandes(NB_COMMANDE_ACHETER);
         
         String montantPayer = inputOutput("Merci de rentrer le montant à payer :");
         int mntPayer = 0;

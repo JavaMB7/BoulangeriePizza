@@ -27,10 +27,10 @@ public class BoulangerieMaker {
 	
 	public synchronized void ajouterStockBoulangerie(int nbBaguette, int nbPainCampagne, int nbCroissant, int nbPainChocolat)
 			throws StockException {
-		stockBoulangerie.add(nbBaguette, "baguette");
-		stockBoulangerie.add(nbPainCampagne, "pain campagne");
-		stockBoulangerie.add(nbCroissant, "croissant");
-		stockBoulangerie.add(nbPainChocolat, "pain chocolat");
+		stockBoulangerie.ajouter(nbBaguette, "baguette");
+		stockBoulangerie.ajouter(nbPainCampagne, "pain campagne");
+		stockBoulangerie.ajouter(nbCroissant, "croissant");
+		stockBoulangerie.ajouter(nbPainChocolat, "pain chocolat");
 	}
 
 	public String verifierstockBoulangerie() {

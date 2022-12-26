@@ -58,7 +58,7 @@ public class StockIngPizza {
         
     }
     
-    public synchronized void add(int quantite, String produit) throws StockException {
+    public synchronized void ajouter(int quantite, String produit) throws StockException {
 		if (quantite >= 0) {
 			switch (produit) {
 			case "frommage" :
@@ -141,10 +141,10 @@ public class StockIngPizza {
 				r1.setNbJambon(0);
 				r1.setPrix(14);
 		try {
-			stock.add(5, "frommage");
-			stock.add(5, "champignon");
-			stock.add(5, "jambon");
-			stock.add(5, "chorizo");
+			stock.ajouter(5, "frommage");
+			stock.ajouter(5, "champignon");
+			stock.ajouter(5, "jambon");
+			stock.ajouter(5, "chorizo");
 		} catch (StockException e) {
 			throw new StockException("Erreur");
 		}

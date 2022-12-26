@@ -1,7 +1,7 @@
 package pizzeria;
 
+import composition.Composition;
 import exception.*;
-import maker.Composition;
 
 public class Recette extends Composition {
 	

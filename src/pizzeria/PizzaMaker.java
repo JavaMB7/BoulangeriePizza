@@ -26,10 +26,10 @@ public class PizzaMaker {
 
 	public synchronized void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
 			throws StockException {
-		stockIngPizza.add(nbChorizo, "chorizo");
-		stockIngPizza.add(nbFrommage, "frommage");
-		stockIngPizza.add(nbJambon, "jambon");
-		stockIngPizza.add(nbChampignon, "champignon");
+		stockIngPizza.ajouter(nbChorizo, "chorizo");
+		stockIngPizza.ajouter(nbFrommage, "frommage");
+		stockIngPizza.ajouter(nbJambon, "jambon");
+		stockIngPizza.ajouter(nbChampignon, "champignon");
 	}
 
 	// Maybe
