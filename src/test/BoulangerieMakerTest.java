@@ -13,14 +13,14 @@ import boulangerie.Commande;
 
 public class BoulangerieMakerTest {
 
-	private BoulangerieMaker pm;
+	private BoulangerieMaker bm;
 	private Commande c1;
 	private Commande c2;
 
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		pm = new BoulangerieMaker();
+		bm = new BoulangerieMaker();
 		
 		c1 = new Commande();
 		c1.setNom("Baguette x2");
@@ -41,41 +41,81 @@ public class BoulangerieMakerTest {
 	}
 
 	@Test
-	public void testAjoutIngStockValeurErrone() throws StockException {
-		assertThrows(StockException.class, () -> { pm.ajouterStockBoulangerie(4, -1, 3, 2); });
+	public void testAjoutStockValeurErrone() throws StockException {
+		assertThrows(StockException.class, () -> { bm.ajouterStockBoulangerie(4, -1, 3, 2); });
 	}
 	
 	@Test
 	public void testVendrePain() {
-		pm.ajoutCommande(c1);
-		assertEquals(2.6, pm.vendrePain(0, 5));
+		bm.ajoutCommande(c1);
+		assertEquals(2.6, bm.vendrePain(0, 5));
 	}
 	
 	@Test
-	public void testFairePizzaAvecArgentPasAssezEleve() {
-		pm.ajoutCommande(c1);
+	public void testPasserCommandeAvecArgentPasAssezEleve() {
+		bm.ajoutCommande(c1);
 		final int moneyAmount = 2;
-		assertTrue(moneyAmount < pm.getToutesCommandes()[0].getPrix());
-		assertEquals(moneyAmount, pm.vendrePain(0, moneyAmount));
+		assertTrue(moneyAmount < bm.getToutesCommandes()[0].getPrix());
+		assertEquals(moneyAmount, bm.vendrePain(0, moneyAmount));
 	}
 	
 	@Test
-	public void testFairePizzaAvecPasAssezIngredients() {
-		pm.ajoutCommande(c2);
-		assertEquals(5, pm.vendrePain(0, 5));
+	public void testPasserCommandeAvecPasAssezIngredients() {
+		bm.ajoutCommande(c2);
+		assertEquals(5, bm.vendrePain(0, 5));
 	}
 	
 	@Test
-	public void testFaireDesPizzasJusquaIncapaciteStock() {
-		pm.ajoutCommande(c1);
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(2.6,pm.vendrePain(0, 5));
-		assertEquals(5,pm.vendrePain(0, 5));
-		System.out.println(pm.verifierstockBoulangerie());
+	public void testPasserDesCommandesJusquaIncapaciteStock() {
+		bm.ajoutCommande(c1);
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(5,bm.vendrePain(0, 5));
+	}
+	
+	@Test
+	public void testAjoutProduitStock() throws StockException {
+		bm.ajouterStockBoulangerie(5, 5, 5, 5);
+		String stock = buffer(20,20,20,20);
+		assertEquals(stock,bm.verifierStockBoulangerie());
+	}
+	
+	@Test
+	public void testPasserDesCommandeApresRemplissageDesStock() throws StockException{
+		bm.ajoutCommande(c1);
+		String stock = buffer(14,20,20,20);
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(5,bm.vendrePain(0, 5));
+		bm.ajouterStockBoulangerie(15, 5, 5, 5);
+		assertEquals(2.6,bm.vendrePain(0, 5));
+		assertEquals(stock,bm.verifierStockBoulangerie());
+	}
+	
+	public String buffer(int baguette, int painCampagne, int croissant, int painChocolat) {
+		StringBuilder buffer = new StringBuilder();
+    	buffer.append("Baguette: ");
+    	buffer.append(baguette);
+    	buffer.append("\n");
+    	buffer.append("Pain Campagne: ");
+    	buffer.append(painCampagne);
+    	buffer.append("\n");
+    	buffer.append("Croissant: ");
+    	buffer.append(croissant);
+    	buffer.append("\n");
+    	buffer.append("Pain Chocolat: ");
+    	buffer.append(painChocolat);
+    	buffer.append("\n");
+    	return buffer.toString();
 	}
 }

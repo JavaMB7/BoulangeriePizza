@@ -73,6 +73,42 @@ public class PizzaMakerTest {
 		assertEquals(8.1,pm.fairePizza(0, 20));
 		assertEquals(8.1,pm.fairePizza(0, 20));
 		assertEquals(20,pm.fairePizza(0, 20));
-		System.out.println(pm.verifierStockIngPizza());
+	}
+	
+	@Test
+	public void testAjoutIngStock() throws StockException {
+		pm.ajouterStockIngPizza(5, 5, 5, 5);
+		String stock = buffer(20,20,20,20);
+		assertEquals(stock,pm.verifierStockIngPizza());
+	}
+	
+	@Test
+	public void testFaireDesPizzasApresRemplissageDesStock() throws StockException{
+		pm.ajoutRecette(r1);
+		String stock = buffer(18,17,20,16);
+		assertEquals(8.1,pm.fairePizza(0, 20));
+		assertEquals(8.1,pm.fairePizza(0, 20));
+		assertEquals(8.1,pm.fairePizza(0, 20));
+		assertEquals(20,pm.fairePizza(0, 20));
+		pm.ajouterStockIngPizza(11, 14, 5, 17);
+		assertEquals(8.1,pm.fairePizza(0, 20));
+		assertEquals(stock,pm.verifierStockIngPizza());
+	}
+	
+	public String buffer(int frommage, int champignon, int jambon, int chorizo) {
+		StringBuilder buf = new StringBuilder();
+    	buf.append("Frommage: ");
+    	buf.append(frommage);
+    	buf.append("\n");
+    	buf.append("Champignon: ");
+    	buf.append(champignon);
+    	buf.append("\n");
+    	buf.append("Jambon: ");
+    	buf.append(jambon);
+    	buf.append("\n");
+    	buf.append("Chorizo: ");
+    	buf.append(chorizo);
+    	buf.append("\n");
+    	return buf.toString();
 	}
 }

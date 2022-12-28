@@ -177,7 +177,7 @@ public class MainBoulangerie {
     }
     
     public static void verifierStock() {
-    	System.out.println(boulangerieMaker.verifierstockBoulangerie());
+    	System.out.println(boulangerieMaker.verifierStockBoulangerie());
     	mainMenu();
     }
     

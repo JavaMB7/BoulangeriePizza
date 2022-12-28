@@ -24,12 +24,12 @@ public class PizzaMaker {
 		return livreRecettes.modifierRecette(recetteAModifier, r);
 	}
 
-	public synchronized void ajouterStockIngPizza(int nbChorizo, int nbFrommage, int nbJambon, int nbChampignon)
+	public synchronized void ajouterStockIngPizza(int nbFrommage, int nbChampignon, int nbJambon, int nbChorizo)
 			throws StockException {
-		stockIngPizza.ajouter(nbChorizo, "chorizo");
 		stockIngPizza.ajouter(nbFrommage, "frommage");
-		stockIngPizza.ajouter(nbJambon, "jambon");
 		stockIngPizza.ajouter(nbChampignon, "champignon");
+		stockIngPizza.ajouter(nbJambon, "jambon");
+		stockIngPizza.ajouter(nbChorizo, "chorizo");
 	}
 
 	// Maybe

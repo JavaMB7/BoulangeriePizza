@@ -33,7 +33,7 @@ public class BoulangerieMaker {
 		stockBoulangerie.ajouter(nbPainChocolat, "pain chocolat");
 	}
 
-	public String verifierstockBoulangerie() {
+	public String verifierStockBoulangerie() {
 		return stockBoulangerie.toString();
 	}
 
